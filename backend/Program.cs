@@ -1,9 +1,12 @@
+using backend;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<DataContext>();
 
 var app = builder.Build();
 
@@ -16,66 +19,62 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var _tradingCards = new List<TradingCard> {
-    new TradingCard { Id = 1, Title="QWE", Description="QWEQWE", ImageURL="qwe", Statistics=new List<int> { 10, 20, 30, 40 } },
-    new TradingCard { Id = 2, Title="ASD", Description="ASDASD", ImageURL="asd", Statistics=new List<int> { 11, 20, 30, 40 } },
-    new TradingCard { Id = 3, Title="ZXC", Description="ZXCZXC", ImageURL="zxc", Statistics=new List<int> { 11, 22, 30, 40 } },
-    new TradingCard { Id = 4, Title="RTY", Description="RTYRTY", ImageURL="rty", Statistics=new List<int> { 11, 22, 33, 40 } },
-};
-
-app.MapGet("/trading-card", () =>
+app.MapGet("/trading-card", async (DataContext context) =>
 {
-    return _tradingCards;
+    return await context.TradingCards.ToListAsync();
 });
 
-app.MapGet("/trading-card/{id}", (int id) =>
+app.MapGet("/trading-card/{id}", async (DataContext context, int id) =>
 {
-    var tradingCard = _tradingCards.Find(t => t.Id == id);
+    var tradingCard = await context.TradingCards.FindAsync(id);
     if (tradingCard is null)
         return Results.NotFound("Trading card not found");
 
     return Results.Ok(tradingCard);
 });
 
-app.MapPost("/trading-card", (TradingCard tradingCard) => {
-    _tradingCards.Add(tradingCard);
-    return _tradingCards;
+app.MapPost("/trading-card", async (DataContext context, TradingCard tradingCard) =>
+{
+    context.TradingCards.Add(tradingCard);
+    await context.SaveChangesAsync();
+    return Results.Ok(await context.TradingCards.ToArrayAsync());
 });
 
-app.MapPut("/trading-card/{id}", (TradingCard updatedTradingCard, int id) =>
+app.MapPut("/trading-card/{id}", async (DataContext context, TradingCard updatedTradingCard, int id) =>
 {
-    var tradingCard = _tradingCards.Find(t => t.Id == id);
+    var tradingCard = await context.TradingCards.FindAsync(id);
     if (tradingCard is null)
         return Results.NotFound("Trading card not found");
 
     tradingCard.Title = updatedTradingCard.Title;
     tradingCard.Description = updatedTradingCard.Description;
     tradingCard.ImageURL = updatedTradingCard.ImageURL;
-    tradingCard.Statistics = updatedTradingCard.Statistics;
+    tradingCard.HpStatistic = updatedTradingCard.HpStatistic;
+    await context.SaveChangesAsync();
 
-    return Results.Ok(tradingCard);
+    return Results.Ok($"Card with an id: {id} updated");
 });
 
-app.MapDelete("/trading-card/{id}", (int id) =>
+app.MapDelete("/trading-card/{id}", async (DataContext context, int id) =>
 {
-    var tradingCard = _tradingCards.Find(t => t.Id == id);
+    var tradingCard = await context.TradingCards.FindAsync(id);
     if (tradingCard is null)
         return Results.NotFound("Trading card not found");
 
-    _tradingCards.Remove(tradingCard);
+    context.TradingCards.Remove(tradingCard);
+    await context.SaveChangesAsync();
 
     return Results.Ok($"Card with an id: {id} removed");
 });
 
-
 app.Run();
 
-class TradingCard
+public class TradingCard
 {
     public int Id { get; set; }
     public required string Title { get; set; }
     public required string Description { get; set; }
     public required string ImageURL { get; set; }
-    public required List<int> Statistics { get; set; }
+    public required int HpStatistic { get; set; }
 }
 
