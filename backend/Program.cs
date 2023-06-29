@@ -47,9 +47,13 @@ app.MapPut("/trading-card/{id}", async (DataContext context, TradingCard updated
         return Results.NotFound("Trading card not found");
 
     tradingCard.Title = updatedTradingCard.Title;
+    tradingCard.CardCode = updatedTradingCard.CardCode;
     tradingCard.Description = updatedTradingCard.Description;
     tradingCard.ImageURL = updatedTradingCard.ImageURL;
     tradingCard.HpStatistic = updatedTradingCard.HpStatistic;
+    tradingCard.ManaStatistic = updatedTradingCard.ManaStatistic;
+    tradingCard.DamageStatistic = updatedTradingCard.DamageStatistic;
+    tradingCard.ArmourStatistic = updatedTradingCard.ArmourStatistic;
     await context.SaveChangesAsync();
 
     return Results.Ok($"Card with an id: {id} updated");
@@ -73,8 +77,12 @@ public class TradingCard
 {
     public int Id { get; set; }
     public required string Title { get; set; }
+    public required string CardCode { get; set; }
     public required string Description { get; set; }
     public required string ImageURL { get; set; }
     public required int HpStatistic { get; set; }
+    public required int ManaStatistic { get; set; }
+    public required int DamageStatistic { get; set; }
+    public required int ArmourStatistic { get; set; }
 }
 
