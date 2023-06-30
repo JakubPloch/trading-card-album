@@ -3,12 +3,26 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+var allowAlbumFrontOrigin = "_allowAlbumFrontOrigin";
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>();
+builder.Services.AddCors();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(allowAlbumFrontOrigin,
+                          policy =>
+                          {
+                              policy.WithOrigins("http://localhost:4200")
+                                                  .AllowAnyHeader()
+                                                  .AllowAnyMethod();
+                          });
+});
 
 var app = builder.Build();
+app.UseCors(allowAlbumFrontOrigin);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
