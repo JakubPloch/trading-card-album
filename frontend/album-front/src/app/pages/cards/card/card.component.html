@@ -1,10 +1,9 @@
 <div
-    class="bg-white rounded-md border shadow-md h-[26rem] w-full max-w-xs md:max-w-none overflow-hidden drop-shadow-lg shadow-gray-60000">
+    class="bg-orange-200 rounded-md shadow-md h-[26rem] w-full max-w-xs md:max-w-none overflow-hidden drop-shadow-lg shadow-gray-600 -skew-x-2">
     <div class="grid justify-center">
-        <img class="h-48 max-h-48 object-scale-down p-3"
-            src="{{tradingCard.imageURL}}" alt="" />
+        <img class="h-48 max-h-48 object-scale-down p-3 -skew-x-2" src="{{tradingCard.imageURL}}" alt="" />
     </div>
-    <div class="w-full flex flex-row text-gray-200 h-8 font-bold text-center align-middle -skew-x-12">
+    <div class="w-full flex flex-row text-gray-200 h-8 font-bold text-center align-middle -skew-x-2">
         <div class="w-1/4 bg-green-700">
             <p class="p-1">
                 {{tradingCard.hpStatistic}}
@@ -26,11 +25,11 @@
             </p>
         </div>
     </div>
-    <div class="text-center grid justify-items-center">
-        <h3 class="font-bold text-xl text-gray-700 -skew-x-12">
+    <div class="text-center grid justify-items-center gap-3 pt-3">
+        <h3 class="font-bold text-xl text-gray-700 -skew-x-2 p-y-10">
             {{tradingCard.title}}
         </h3>
-        <div class="w-11/12 h-full shadow-inner rounded-md shadow-teal-300 rounder p-3">
+        <div class="w-11/12 h-full shadow-inner rounded-md shadow-teal-300 rounder p-3 -skew-x-2">
             <p class="paragraph-normal text-gray-600">
                 {{tradingCard.description}}
             </p>

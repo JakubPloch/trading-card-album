@@ -1,7 +1,7 @@
-<section class="grid justify-items-center w-auto min-h-full py-8">
+<section class="h-full grid justify-items-center w-auto pt-10 pb-80 lg:pb-40">
   <div class="grid w-4/5 justify-items-center md:grid-cols-2 lg:grid-cols-5 gap-8">
 
-      <div *ngFor="let item of cardsToRender; index as i">
+      <div *ngFor="let item of cardsToRender; index as i" class="w-full">
         <app-card [tradingCard]="item"></app-card>
       </div>
 
