@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DeckGridComponent } from './pages/cards/deck-grid/deck-grid.component';
 
 const routes: Routes = [
-  {
-    path: 'cards',
-    loadChildren: () => import('./pages/cards/cards-grid/cards-grid.module').then(m => m.CardsGridModule)
-  }
+  { path: 'deck', component: DeckGridComponent },
 ];
 
 @NgModule({
