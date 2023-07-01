@@ -1,0 +1,15 @@
+<div class="h-full w-full">
+    <form [formGroup]="cardCodeForm" (ngSubmit)="onSubmit()" class="h-full">
+        <div class="flex h-full justify-center items-center">
+            <div class="text-5xl flex flex-col justify-center items-center">
+                <div class="items-center border-b-2 pb-2">
+                    <input formControlName="cardCode" class="bg-transparent text-center placeholder-gray-200 focus:placeholder-opacity-0 focus:outline-none"
+                        type="text" placeholder="Enter Code...">
+                </div>
+                <div class="pt-6">
+                    <button type="submit"  class="px-5 pt-4 pb-5 rounded-xl transition ease-in-out delay-150 bg-slate-400 hover:bg-slate-100 duration-300"> Submit </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

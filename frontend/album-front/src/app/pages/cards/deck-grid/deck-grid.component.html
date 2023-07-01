@@ -1,12 +1,11 @@
-<section class="grid justify-items-center h-screen w-screen p-8">
-    <div class="grid w-4/5 justify-items-center md:grid-cols-2 lg:grid-cols-5 gap-8">
-      
-      <ng-container *ngIf="request$ | async as request">
-        <div *ngFor="let item of request; index as i">
-            <!-- {{ item.id }} -->
-            <app-card [tradingCard]="item"></app-card>
-        </div>
-      </ng-container>
-  
-    </div>
-  </section>
+<section class="grid justify-items-center w-auto min-h-full py-8">
+  <div class="grid w-4/5 justify-items-center md:grid-cols-2 lg:grid-cols-5 gap-8">
+
+    <ng-container *ngIf="request$ | async as request">
+      <div *ngFor="let item of request; index as i">
+        <app-card [tradingCard]="item"></app-card>
+      </div>
+    </ng-container>
+
+  </div>
+</section>
