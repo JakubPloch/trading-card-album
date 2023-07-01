@@ -3,8 +3,8 @@
       
       <ng-container *ngIf="request$ | async as request">
         <div *ngFor="let item of request; index as i">
-            {{ item.id }}
-            <app-card></app-card>
+            <!-- {{ item.id }} -->
+            <app-card [tradingCard]="item"></app-card>
         </div>
       </ng-container>
   
