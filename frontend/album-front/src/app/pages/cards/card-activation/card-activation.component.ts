@@ -19,7 +19,6 @@ export class CardActivationComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
     private localActivatedCards: LocalStorageService,
     private api: ApiService,
     private toastr: ToastrService,
@@ -31,7 +30,6 @@ export class CardActivationComponent {
       this.handleNewCardCode(newCardCode);
     }
     this.cardCodeForm.reset();
-    this.router.navigate(['/deck'])
   }
 
   private handleNewCardCode(cardCode: string): void {
