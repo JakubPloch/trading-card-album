@@ -14,6 +14,11 @@ export class ApiService {
     .pipe(
       catchError(this._handleError)
     );
+
+  public getContact = (params?: any): Observable<any> => this.httpClient.get(environment.contactApiUrl, { params })
+  .pipe(
+    catchError(this._handleError)
+  ); 
     
   private _handleError = (error: any) => {
     console.log(error);
