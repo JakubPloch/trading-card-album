@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BehaviorSubject, startWith, switchMap } from 'rxjs';
+import { ApiService } from 'src/app/services/api.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-card-activation',
@@ -15,13 +18,34 @@ export class CardActivationComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router
-  ) {}
+    private router: Router,
+    private localActivatedCards: LocalStorageService,
+    private api: ApiService,
+  ) { }
 
   onSubmit(): void {
-    console.log('Card added - code: ', this.cardCodeForm.value);
+    if (this.cardCodeForm.controls.cardCode.value !== null) {
+      let newCardCode: string = this.cardCodeForm.controls.cardCode.value;
+      this.handleNewCardCode(newCardCode);
+    }
     this.cardCodeForm.reset();
     this.router.navigate(['/deck'])
+  }
+
+  private handleNewCardCode(cardCode: string): void {
+    let refresh = new BehaviorSubject<boolean>(false);
+    let request$ = refresh.pipe(startWith(true), switchMap(x => this.api.get('/trading-card-exists/' + cardCode)));
+
+    request$.subscribe((response) => {
+      if (response) {
+        if (this.localActivatedCards.checkIfAlreadyActivated(cardCode))
+          console.log("Card already activated");
+        else
+          this.localActivatedCards.addActivatedCardCode(cardCode);
+      } else {
+        console.log("Invalid code");
+      }
+    });
   }
 
 }

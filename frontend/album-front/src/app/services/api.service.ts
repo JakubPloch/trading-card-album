@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { catchError, Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  constructor(private _httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
-  public get = (url: string, params?: any): Observable<any> => this._httpClient.get(environment.webApiUrl+url, {params})
-  .pipe(
-    catchError(this._handleError)
-  );
-
+  public get = (url: string, params?: any): Observable<any> => this.httpClient.get(environment.webApiUrl + url, { params })
+    .pipe(
+      catchError(this._handleError)
+    );
+    
   private _handleError = (error: any) => {
     console.log(error);
     return error;
