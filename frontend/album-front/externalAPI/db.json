@@ -1,0 +1,13 @@
+{
+    "contact": [
+      {
+        "id": 1,
+        "street": "2487 Grant View Drive",
+        "city": "Milwaukee",
+        "state": "Wisconsin",
+        "zipcode": "53216",
+        "mobile-number": "920-990-1725",
+        "email": "lorem@ipsum.com"
+      }
+    ]
+  }

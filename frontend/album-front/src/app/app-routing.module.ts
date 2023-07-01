@@ -6,6 +6,8 @@ import { CardActivationComponent } from './pages/cards/card-activation/card-acti
 const routes: Routes = [
   { path: 'deck', component: DeckGridComponent },
   { path: 'enter-code', component: CardActivationComponent },
+  { path: '**', component: CardActivationComponent},
+  
 ];
 
 @NgModule({

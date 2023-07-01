@@ -1,9 +1,12 @@
-<div class="w-full flex justify-end">
-    <div class="w-auto bg-slate-600 border-b-4 shadow-md border-gray-900 rounded-tl-full pl-10">
-        <nav class="flex justify-start">
-            <div class=" flex flex-row justify-center m-4 text-center text-gray-500">
-                <a> Lorem Ipsum </a>
-            </div>
-        </nav>
+<div class="fixed bottom-0 w-full flex justify-end">
+    <div class="w-full lg:w-auto bg-orange-100 border-t-4 shadow-md border-red-700 lg:rounded-tl-full lg:pl-10">
+        <div *ngFor="let contact of contactInfo$ | async"
+            class="flex flex-col lg:flex-row m-6 gap-2 lg:gap-5 text-center text-gray-500">
+            <a> {{contact.state}} </a>
+            <a> {{contact.city}} </a>
+            <a> {{contact.street}} </a>
+            <a> {{contact.zipcode}} </a>
+            <a> {{contact.email}} </a>
+        </div>
     </div>
 </div>
