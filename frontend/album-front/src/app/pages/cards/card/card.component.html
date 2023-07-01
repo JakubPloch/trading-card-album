@@ -1,0 +1,39 @@
+<div
+    class="bg-white rounded-md border shadow-md h-[26rem] w-full max-w-xs md:max-w-none overflow-hidden drop-shadow-lg shadow-gray-60000">
+    <div class="grid justify-center">
+        <img class="h-48 max-h-48 object-scale-down p-3"
+            src="{{tradingCard.imageURL}}" alt="" />
+    </div>
+    <div class="w-full flex flex-row text-gray-200 h-8 font-bold text-center align-middle -skew-x-12">
+        <div class="w-1/4 bg-green-700">
+            <p class="p-1">
+                {{tradingCard.hpStatistic}}
+            </p>
+        </div>
+        <div class="w-1/4 bg-blue-700">
+            <p class="p-1">
+                {{tradingCard.manaStatistic}}
+            </p>
+        </div>
+        <div class="w-1/4 bg-orange-700">
+            <p class="p-1">
+                {{tradingCard.damageStatistic}}
+            </p>
+        </div>
+        <div class="w-1/4 bg-red-700">
+            <p class="p-1">
+                {{tradingCard.armourStatistic}}
+            </p>
+        </div>
+    </div>
+    <div class="text-center grid justify-items-center">
+        <h3 class="font-bold text-xl text-gray-700 -skew-x-12">
+            {{tradingCard.title}}
+        </h3>
+        <div class="w-11/12 h-full shadow-inner rounded-md shadow-teal-300 rounder p-3">
+            <p class="paragraph-normal text-gray-600">
+                {{tradingCard.description}}
+            </p>
+        </div>
+    </div>
+</div>
