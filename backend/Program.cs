@@ -47,6 +47,24 @@ app.MapGet("/trading-card/{id}", async (DataContext context, int id) =>
     return Results.Ok(tradingCard);
 });
 
+app.MapGet("/trading-card-exists/{cardCode}", async (DataContext context, string cardCode) =>
+{
+    var tradingCard = await context.TradingCards.FirstOrDefaultAsync(x => x.CardCode == cardCode);
+    if (tradingCard is null)
+        return Results.Ok(false);
+
+    return Results.Ok(true);
+});
+
+app.MapGet("/trading-card-code/{cardCode}", async (DataContext context, string cardCode) =>
+{
+    var tradingCard = await context.TradingCards.FirstOrDefaultAsync(x=> x.CardCode == cardCode);
+    if (tradingCard is null)
+        return Results.NotFound("Card not activated");
+
+    return Results.Ok(tradingCard);
+});
+
 app.MapPost("/trading-card", async (DataContext context, TradingCard tradingCard) =>
 {
     context.TradingCards.Add(tradingCard);
