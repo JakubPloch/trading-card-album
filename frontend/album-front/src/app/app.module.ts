@@ -10,6 +10,8 @@ import { NavbarComponent } from './shared/utils/navbar/navbar.component';
 import { CardActivationComponent } from './pages/cards/card-activation/card-activation.component';
 import { FooterComponent } from './shared/utils/footer/footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

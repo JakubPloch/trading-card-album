@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, startWith, switchMap } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -21,6 +22,7 @@ export class CardActivationComponent {
     private router: Router,
     private localActivatedCards: LocalStorageService,
     private api: ApiService,
+    private toastr: ToastrService,
   ) { }
 
   onSubmit(): void {
@@ -39,11 +41,13 @@ export class CardActivationComponent {
     request$.subscribe((response) => {
       if (response) {
         if (this.localActivatedCards.checkIfAlreadyActivated(cardCode))
-          console.log("Card already activated");
-        else
+          this.toastr.warning("Card already activated!");
+        else{
+          this.toastr.success("Card activated!");
           this.localActivatedCards.addActivatedCardCode(cardCode);
+        }
       } else {
-        console.log("Invalid code");
+        this.toastr.error("Invalid Card Code.");
       }
     });
   }
